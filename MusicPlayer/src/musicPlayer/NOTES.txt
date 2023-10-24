@@ -1,0 +1,12 @@
+eef freef,Tyler the Cremator,2
+intro,alt-J,4
+Flying Whales,Gojira,0
+Krazy World,King Gheedorah,1
+Raid,MF DOOM,1
+Instrument of Surrender,British Sea Power,5
+DELETEME,BadAritt,2
+
+
+
+//If implementing lyrics, remove option for users to add new songs
+// Replace with ability to build their own playlist during the session
