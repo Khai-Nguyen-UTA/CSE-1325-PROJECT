@@ -15,16 +15,22 @@ public class Main {
 		File songFile = null;
 		Scanner sc = null;
 		FileWriter output = null;
-		//Try and open songs.txt, if that shit doesn't work, exit
+		
 		try {
 			String filePath = System.getProperty("user.dir") + "\\bin\\MusicPlayer\\songs.txt";
-			songFile = new File(filePath);
-			sc = new Scanner(songFile);
+		    songFile = new File(filePath);
+		    if (songFile.createNewFile()) {
+		    	System.out.println("Empty file created.");
+		    }
+		    sc = new Scanner(songFile);
+		} 
+		catch (IOException e) {
+		      System.out.println("Error occurred.");
+		      e.printStackTrace();
 		}
-		catch(FileNotFoundException e){
-			System.out.println("File not found.");
-			e.printStackTrace();
-		}
+		
+		
+		
 		
 		while (sc.hasNextLine()) {
 			// read line and split to tokens
@@ -48,10 +54,8 @@ public class Main {
 				}
 				tokenCount++;
 			}
-			
 			Song newSong = new Song(title,artist,genre);
 			trackList.add(newSong);
-//			System.out.printf("%s - %s [%s]\n", newSong.title, newSong.artist, newSong.genre);
 		}
 		
 		//Close scanner
@@ -91,6 +95,12 @@ public class Main {
 					break;
 				case 2:
 					playGenre(trackList, input);
+					break;
+				case 3:
+					addSong(trackList, input);
+					break;
+				case 4:
+					deleteSong(trackList, input);
 					break;
 				case 5:
 					System.out.println("[ EXITING. ]");
@@ -155,7 +165,47 @@ public class Main {
 	}
 	
 	public static void addSong(ArrayList<Song> trackList, Scanner input) {
-		
+		//function to let user input a new song to end of list
+		Song userSong = new Song();
+		//display the genres available, have them choose a valid index
+		int i = 0;
+		for(Genres genre: Genres.values()) {
+			System.out.printf("\t<%d> - %s\n", i, genre);
+			i++;
+		}
+		System.out.println("[SELECT GENRE:]");
+		int userInput = input.nextInt();
+		input.nextLine();
+		if( userInput >= 0 && userInput <= i-1) {
+			userSong.genre = Genres.values()[userInput];
+		}
+		else {
+			System.out.println("[ERROR: INVALID INDEX]");
+		}
+		System.out.println("Enter song title");
+		String title = input.nextLine();
+		userSong.title = title;
+		System.out.println("Enter artist name");
+		String artist = input.nextLine();
+		userSong.artist = artist;
+		trackList.add(userSong);
+		System.out.printf("%s - %s added.\n", userSong.title, userSong.artist);
 	}
 
+	public static void deleteSong(ArrayList<Song> trackList, Scanner input) {
+		int i = 0;
+		for(Song song: trackList) {
+			System.out.printf("\t<%d> %s - %s\n",i,song.title,song.artist);
+			i++;
+		}
+		System.out.println("[SELECT SONG TO DELETE:]");
+		int userInput = input.nextInt();
+		if( userInput >= 0 && userInput <= i-1) {
+			trackList.remove(userInput);
+			System.out.println("Song removed.");
+		}
+		else {
+			System.out.println("[ERROR: INVALID INDEX]");
+		}	
+	}
 }
