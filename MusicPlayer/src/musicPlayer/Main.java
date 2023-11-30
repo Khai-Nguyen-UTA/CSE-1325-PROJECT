@@ -17,7 +17,7 @@ public class Main {
 		FileWriter output = null;
 		
 		try {
-			String filePath = System.getProperty("user.dir") + "\\bin\\MusicPlayer\\songs.txt";
+			String filePath = System.getProperty("user.dir") + "songs.txt";
 		    songFile = new File(filePath);
 		    if (songFile.createNewFile()) {
 		    	System.out.println("Empty file created.");
