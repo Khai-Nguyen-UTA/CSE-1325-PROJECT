@@ -166,7 +166,7 @@ public class Main {
 	
 	public static void addSong(ArrayList<Song> trackList, Scanner input) {
 		//function to let user input a new song to end of list
-		Song userSong = new Song();
+		Song userSong = new Song(null, null, null);
 		//display the genres available, have them choose a valid index
 		int i = 0;
 		for(Genres genre: Genres.values()) {
